@@ -1,4 +1,4 @@
-Contractual
+Simplecheck
 ===========
 
-API based contract mechanism.
+Simple property checking for Ruby

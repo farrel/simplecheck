@@ -1,6 +1,7 @@
-require 'contractual/check_failed'
+require 'simplecheck/version'
+require 'simplecheck/check_failed'
 
-module Contractual
+module Simplecheck
   def check( *arguments, &block )
     check_passed, message = if block
                               check_block( block, *arguments )
@@ -37,15 +38,15 @@ module Contractual
     end
   end
 
-  def check_threequal( argument, receiver )
-    if receiver === argument 
-      [ true, nil ] 
+  def check_threequal( *arguments, receiver )
+    if invalid_argument = arguments.find{ |argument| !( receiver === argument )}
+      [ false, "#{ invalid_argument } does not satisfy #{ receiver }" ]
     else
-      [ false, "#{ argument } does not satisfy #{ receiver }" ]
+      [ true, nil ] 
     end
   end
 
   def handle_failure( message )
-    raise Contractual::CheckFailed.new( message )
+    raise Simplecheck::CheckFailed.new( message )
   end
 end

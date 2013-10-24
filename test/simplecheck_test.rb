@@ -1,8 +1,8 @@
 require 'minitest/autorun'
-require './lib/contractual'
+require 'simplecheck'
 
 class Foo
-  include Contractual
+  include Simplecheck
 
   def bool_check( a )
     check( a > 0 )
@@ -10,6 +10,10 @@ class Foo
 
   def threequel_check( a )
     check( a, Integer )
+  end
+
+  def multiple_threequal_check( *arguments )
+    check( *arguments, Integer )
   end
 
   def block_check( a )
@@ -31,7 +35,7 @@ class Foo
   end
 end
 
-class TestContractual < MiniTest::Unit::TestCase
+class TestSimplecheck < MiniTest::Unit::TestCase
 
   def setup
     @foo = Foo.new
@@ -42,7 +46,7 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_bool_check_raises_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.bool_check( -1 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.bool_check( -1 )}
   end
 
   def test_threequal_check_true
@@ -50,7 +54,15 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_threequal_check_raises_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.threequel_check( '1' )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.threequel_check( '1' )}
+  end
+
+  def test_multiple_threequal_check
+    assert( @foo.multiple_threequal_check( 1, 2 ))
+  end
+
+  def test_multiple_threequal_check_raises_exception
+    assert_raises( Simplecheck::CheckFailed ){ @foo.multiple_threequal_check( 1, '2' )}
   end
 
   def test_block_check_true
@@ -58,7 +70,7 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_block_check_raises_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.block_check( 1 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.block_check( 1 )}
   end
 
   def test_block_check_multiple_arguments_true
@@ -66,7 +78,7 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_block_check_multiple_arguments_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.block_check_multiple_arguments( 1, 2, 2 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.block_check_multiple_arguments( 1, 2, 2 )}
   end
 
   def test_lambda_argument_check_true
@@ -74,7 +86,7 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_lambda_argument_check_raises_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.lambda_argument_check( 1 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.lambda_argument_check( 1 )}
   end
 
   def test_lambda_block_check_true
@@ -82,6 +94,6 @@ class TestContractual < MiniTest::Unit::TestCase
   end
 
   def test_lambda_block_check_raises_exception
-    assert_raises( Contractual::CheckFailed ){ @foo.lambda_block_check( 1 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.lambda_block_check( 1 )}
   end
 end
