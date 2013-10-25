@@ -5,7 +5,7 @@ class Person
   include Simplecheck
   include Comparable
 
-  attr_reader( :name, :surname, :date_of_birth )
+  attr_accessor( :name, :surname, :date_of_birth )
 
   def initialize( name, surname, date_of_birth )
     check( name, surname, String )
@@ -18,10 +18,9 @@ class Person
 
   def <=>( person )
     check( person, Person )
+    check( person.date_of_birth )
 
-    comparison = lambda{ |o| [ o.date_of_birth, o.surname, o.name ]}
-
-    comparison[ self ] <=> comparison[ person ]
+    self.date_of_birth <=> person.date_of_birth
   end
 end
 
@@ -30,14 +29,25 @@ def try
     yield
   rescue Simplecheck::CheckFailed => exception
     puts "Check Failed: #{ exception.message }"
+  rescue => exception
+    puts "Exception: #{ exception.message }"
   end
 end
 
-try{ Person.new( 'Bob', 'Roberts', '1980-01-01' )}
+# date_of_birth is not a Date
+try{ Person.new( 'Bob', 'Roberts', '1980-01-01' )} 
 
-bob = Person.new( 'Bob', 'Roberts', Date.civil( 1980, 1, 1 )) 
+bob = Person.new( 'Bob', 'Roberts', Date.civil( 1970, 1, 1 )) 
 joe = Person.new( 'Joe', 'Josephs', Date.civil( 1980, 1, 1 ))
 
+# 1 is not a Person
 try{ bob > 1 }
 
-puts "Bob > Joe" if bob > joe 
+if bob > joe
+  puts "Bob > Joe"
+end
+
+joe.date_of_birth = nil
+
+# date_of_birth is not present
+try{ bob > joe }
