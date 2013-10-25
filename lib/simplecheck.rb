@@ -3,24 +3,22 @@ require 'simplecheck/check_failed'
 
 module Simplecheck
   def check( *arguments, &block )
-    check_passed, message = if block
-                              check_block( block, *arguments )
+    check_passed, message = if block_given?
+                              check_arguments( *(arguments + [ block ]) )
                             else
                               check_arguments( *arguments )
                             end
 
+    check_arguments( *arguments )
+
     if check_passed
-      true
+      arguments
     else
       handle_failure( message )
     end
   end
 
   private
-  def check_block( block, *arguments )
-    block.call( *arguments )
-  end
-
   def check_arguments( *arguments )
     case arguments.size
     when 1

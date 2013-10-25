@@ -21,7 +21,7 @@ class Foo
   end
 
   def block_check_multiple_arguments( a, b, c )
-    check( a, b, c ){ |x, y, z| ( x + y + z ).even? }
+    check( a, b, c ){ |x| x.even? }
   end
 
   def lambda_argument_check( a )
@@ -74,11 +74,11 @@ class TestSimplecheck < MiniTest::Unit::TestCase
   end
 
   def test_block_check_multiple_arguments_true
-    assert( @foo.block_check_multiple_arguments( 1, 2, 1 ))
+    assert( @foo.block_check_multiple_arguments( 2, 2, 2 ))
   end
 
   def test_block_check_multiple_arguments_exception
-    assert_raises( Simplecheck::CheckFailed ){ @foo.block_check_multiple_arguments( 1, 2, 2 )}
+    assert_raises( Simplecheck::CheckFailed ){ @foo.block_check_multiple_arguments( 2, 2, 1 )}
   end
 
   def test_lambda_argument_check_true
