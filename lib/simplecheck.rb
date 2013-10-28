@@ -4,12 +4,10 @@ require 'simplecheck/check_failed'
 module Simplecheck
   def check( *arguments, &block )
     check_passed, message = if block_given?
-                              check_arguments( *(arguments + [ block ]) )
+                              check_arguments_with_block( arguments, block )
                             else
-                              check_arguments( *arguments )
+                              check_arguments( arguments )
                             end
-
-    check_arguments( *arguments )
 
     if check_passed
       arguments
@@ -19,13 +17,17 @@ module Simplecheck
   end
 
   private
-  def check_arguments( *arguments )
+  def check_arguments( arguments )
     case arguments.size
     when 1
-      check_bool( arguments[ 0 ] )
+      check_bool( arguments[ 0 ])
     else
       check_threequal( *arguments )
     end
+  end
+
+  def check_arguments_with_block( arguments, block )
+    check_arguments(( arguments + [ block ]))
   end
 
   def check_bool( condition )
