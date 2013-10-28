@@ -7,7 +7,7 @@ If a check fails an exception of type `Simplecheck::CheckFailed` is raised.
 
 Usage
 -----
-
+    
     require 'simplecheck'
 
     class Person
@@ -33,57 +33,49 @@ Multiple Arguments
 
     check( name, surname, String )
 
-Boolean Check
--------------
+Check Types
+-----------
+
+### Boolean Check
 
 In the simplest case `check` takes an expression as an argument. If the expression evaluates to `nil` or `false` it will fail.
 
     check( a > 2 )
-    check( name )
 
-
-Case Equality (===) Check
--------------------------------
+### Case Equality (===) Check
 
 If two or more arguments are given without a block, then the last argument becomes the condition against which the previous arguments are checked. To accomplish this the condition argument should implement the case equality operator (`===` or threequal) in a logical manner.
 
-The following Ruby Core classes already alias `===` to various instance methods to carry out checks.
+If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`. The following Ruby Core classes already alias `===` to various instance methods. If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`.
 
-### Class
+#### Class
 
 `===` is aliased to `kind_of?`:
 
     check( age, Numeric )
 
-### Range
+#### Range
 
 `===` is aliased to `include?`:
 
     check( age, 18..75 ) 
 
-### Regexp
+#### Regexp
 
 `===` is aliased to `match`:
 
     check( phone_number, /^\d\d\d-\d\d\d\d$/ )
 
-### Proc
+#### Proc
 
 `===` is aliased to `call`: 
 
     check( password, password_confirmation, lambda{ |pwd| !Dictionary.check( pwd )})
 
 
-Block Check
------------
+### Block Check
 
-A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block: 
-
-    check( allowed_names ) do |n|
-      n.size > 2
-    end
-
-This is useful to check multiple arguments which are required to be an argument to a check:
+A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block. This is useful to check multiple arguments which are required to be an argument to a check:
 
     check( a, b, c ) do |n|
       n.modulo?(2).zero?
