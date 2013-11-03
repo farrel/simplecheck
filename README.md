@@ -14,8 +14,8 @@ Usage
       include Simplecheck
 
       def initialize( name, age )
-        check( name )
-        check( age, 18..75 )
+        check( name )         # Check name is not nil
+        check( age, 18..75 )  # Check age is within range
     
         @name = name
         @age = age
@@ -23,7 +23,7 @@ Usage
     end
     
     Person.new( "Joe", 25 ) # No error
-    Person.new( nil, 25 ) rescue puts "Name can not be nil"
+    Person.new( nil, 25 )   rescue puts "Name can not be nil"
     Person.new( "Joe", 15 ) rescue puts "Age is out of range"
 
 Check Methods
@@ -34,12 +34,6 @@ Simplecheck currently supports three different check methods:
 * Expression Check
 * Case Equality (===) Check 
 * Block Check
-
-#### Multiple Arguments
-
-Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
-
-    check( name, surname, String )
 
 ### Expression Check
 
@@ -79,7 +73,7 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 #### Custom Check Object
 
-The default behaviour of `Object#===` is the same as `Object#==`. To customise the behaviour implement your own `Object#===`.
+The default behaviour of `Object#===` is the same as `Object#==`. To customise the behaviour implement your own `Object#===` method.
 
 For example to check whether a set of points is inside a given polygon we would implement `Polygon#===` as a [point-in-polygon algorithm](https://en.wikipedia.org/wiki/Point_in_polygon), allowing us to carry out the check using a Polygon instance:
 
@@ -94,6 +88,11 @@ A block can be passed to `check`, with the arguments passed to `check` then pass
     end
 
 This is syntactic sugar for the Proc Case Equality check.
+
+Multiple Arguments
+------------------
+
+Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
 
 License
 -------
