@@ -79,9 +79,9 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 #### Custom Check Object
 
-The default behaviour of `Object#===` is the same as `Object#==`. To customise the behaiour implement your own `Object#===`
+The default behaviour of `Object#===` is the same as `Object#==`. To customise the behaviour implement your own `Object#===`.
 
-For example to check whether a set of points is inside a given polygon we implement `Polygon#===` as an implmentation of a [point-in-polygon algorithm](https://en.wikipedia.org/wiki/Point_in_polygon), allowing us to carry out the check using a Poygon instance:
+For example to check whether a set of points is inside a given polygon we would implement `Polygon#===` as a [point-in-polygon algorithm](https://en.wikipedia.org/wiki/Point_in_polygon), allowing us to carry out the check using a Polygon instance:
 
     check( point_1, point_2, polygon )
 
