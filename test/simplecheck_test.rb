@@ -1,18 +1,17 @@
-require 'minitest/autorun'
-require 'simplecheck'
+require 'test_helper'
 
 class Foo
   include Simplecheck
 
-  def bool_check( a )
-    check( a > 0 )
+  def expression_check( a )
+    check( a )
   end
 
-  def threequel_check( a )
+  def case_equality_check( a )
     check( a, Integer )
   end
 
-  def multiple_threequal_check( *arguments )
+  def case_equality_check_multiple_arguments( *arguments )
     check( *arguments, Integer )
   end
 
@@ -35,34 +34,34 @@ class Foo
   end
 end
 
-class TestSimplecheck < MiniTest::Unit::TestCase
+class TestSimplecheck < MiniTest::Test
 
   def setup
     @foo = Foo.new
   end
 
-  def test_bool_check_true
-    assert( @foo.bool_check( 1 ))
+  def test_expression_check_true
+    assert( @foo.expression_check( 1 ))
   end
 
-  def test_bool_check_raises_exception
-    assert_raises( Simplecheck::CheckFailed ){ @foo.bool_check( -1 )}
+  def test_expression_check_raises_exception
+    assert_raises( Simplecheck::CheckFailed ){ @foo.expression_check( nil )}
   end
 
-  def test_threequal_check_true
-    assert( @foo.threequel_check( 1 ))
+  def test_case_equality_check_true
+    assert( @foo.case_equality_check( 1 ))
   end
 
-  def test_threequal_check_raises_exception
-    assert_raises( Simplecheck::CheckFailed ){ @foo.threequel_check( '1' )}
+  def test_case_equality_check_raises_exception
+    assert_raises( Simplecheck::CheckFailed ){ @foo.case_equality_check( '1' )}
   end
 
-  def test_multiple_threequal_check
-    assert( @foo.multiple_threequal_check( 1, 2 ))
+  def test_case_equality_check_multiple_arguments
+    assert( @foo.case_equality_check_multiple_arguments( 1, 2 ))
   end
 
-  def test_multiple_threequal_check_raises_exception
-    assert_raises( Simplecheck::CheckFailed ){ @foo.multiple_threequal_check( 1, '2' )}
+  def test_case_equality_check_multiple_arguments_raises_exception
+    assert_raises( Simplecheck::CheckFailed ){ @foo.case_equality_check_multiple_arguments( 1, '2' )}
   end
 
   def test_block_check_true

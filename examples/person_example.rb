@@ -30,7 +30,7 @@ def try
   rescue Simplecheck::CheckFailed => exception
     puts "Check Failed: #{ exception.message }"
   rescue => exception
-    puts "Exception: #{ exception.message }"
+    puts "EXCEPTION: #{ exception.message }"
   end
 end
 
@@ -43,11 +43,11 @@ joe = Person.new( 'Joe', 'Josephs', Date.civil( 1980, 1, 1 ))
 # 1 is not a Person
 try{ bob > 1 }
 
-if bob > joe
-  puts "Bob > Joe"
+if joe > bob
+  puts "Joe > Bob"
 end
 
-joe.date_of_birth = nil
+bob.date_of_birth = nil
 
 # date_of_birth is not present
-try{ bob > joe }
+try{ joe > bob }

@@ -5,7 +5,7 @@ include Simplecheck
 check( 1, Integer )
 
 # Regexp#=== -> Regexp#match
-check( /./, Regexp )
+check( 'aaabbb', /^aaa/ )
 
 # Range#=== -> Range#include?
 check( 1, 1..10 )

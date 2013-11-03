@@ -3,50 +3,56 @@ require 'simplecheck/check_failed'
 
 module Simplecheck
   def check( *arguments, &block )
-    check_passed, message = if block_given?
-                              check_arguments_with_block( arguments, block )
-                            else
-                              check_arguments( arguments )
-                            end
+    error_message = if block_given?
+                      __check_arguments_with_block( arguments, block )
+                    else
+                      __check_arguments( arguments )
+                    end
 
-    if check_passed
-      arguments
+    if error_message
+      __handle_failure( error_message )
     else
-      handle_failure( message )
+      __handle_return_arguments( arguments )
     end
   end
+
 
   private
-  def check_arguments( arguments )
+  def __check_arguments( arguments )
     case arguments.size
     when 1
-      check_bool( arguments[ 0 ])
+      __check_expression( arguments[ 0 ])
     else
-      check_threequal( *arguments )
+      __check_case_equality( *arguments )
     end
   end
 
-  def check_arguments_with_block( arguments, block )
-    check_arguments(( arguments + [ block ]))
+  def __check_arguments_with_block( arguments, block )
+    __check_arguments(( arguments + [ block ]))
   end
 
-  def check_bool( condition )
-    if condition 
-      [ true, nil ] 
-    else
-      [ false, 'Condition is not true' ]
+  def __check_expression( expression )
+    if !expression
+      'Condition is not true' 
     end
   end
 
-  def check_threequal( *arguments, receiver )
+  def __check_case_equality( *arguments, receiver )
     if invalid_argument = arguments.find{ |argument| !( receiver === argument )}
-      [ false, "#{ invalid_argument } does not satisfy #{ receiver }" ]
-    else
-      [ true, nil ] 
+      "#{ invalid_argument } does not satisfy #{ receiver }" 
     end
   end
 
-  def handle_failure( message )
+  def __handle_failure( message )
     raise Simplecheck::CheckFailed.new( message )
+  end
+
+  def __handle_return_arguments( arguments )
+    case arguments.size
+    when 1
+      arguments[0]
+    else
+      arguments
+    end
   end
 end

@@ -1,4 +1,3 @@
 module Simplecheck
-   class CheckFailed < StandardError
-   end
+   class CheckFailed < StandardError; end
 end

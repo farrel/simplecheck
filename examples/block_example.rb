@@ -2,10 +2,10 @@ require 'simplecheck'
 include Simplecheck
 
 # Block passed implicitly to check
-check( 2, 4 ){ |x, y| x + y > 5 }
+check( 2, 4 ){ |x| x.even? }
 
 # Block passed explicity to check
-sum_check = lambda{ |x, y| x + y > 5 } 
-check( 2, 4, &sum_check )
+is_even = lambda{ |x| x.even? } 
+check( 2, 4, &is_even  )
 
 puts "All passed"

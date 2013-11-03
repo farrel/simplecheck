@@ -1,13 +1,13 @@
 Simplecheck
 ===========
 
-Simplecheck is a property checking API for Ruby. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
+Simplecheck is a property checking API for Ruby designed for quickly checking of arguments. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
 
 If a check fails an exception of type `Simplecheck::CheckFailed` is raised.
 
 Usage
 -----
-    
+
     require 'simplecheck'
 
     class Person
@@ -26,17 +26,23 @@ Usage
     Person.new( nil, 25 ) rescue puts "Name can not be nil"
     Person.new( "Joe", 15 ) rescue puts "Age is out of range"
 
-Multiple Arguments
-------------------
-
-`check` can be called with multiple arguments, with each argument being checked against the condition:
-
-    check( name, surname, String )
 
 Check Types
 -----------
 
-### Boolean Check
+Simplecheck currently supports three different check methods:
+
+* Expression Check
+* Case Equality (===) Check 
+* Block Check
+
+#### Multiple Arguments
+
+Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
+
+    check( name, surname, String )
+
+### Expression Check
 
 In the simplest case `check` takes an expression as an argument. If the expression evaluates to `nil` or `false` it will fail.
 
@@ -72,16 +78,15 @@ If a class does not alias or implement it's own version of `===` it has the same
 
     check( password, password_confirmation, lambda{ |pwd| !Dictionary.check( pwd )})
 
-
 ### Block Check
 
-A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block. This is useful to check multiple arguments which are required to be an argument to a check:
+A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block.:
 
     check( a, b, c ) do |n|
       n.modulo?(2).zero?
     end
 
- This is syntactic sugar for the Proc case equality check.
+This is syntactic sugar for the Proc Case Equality check.
 
 License
 -------
