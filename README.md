@@ -1,7 +1,7 @@
 Simplecheck
 ===========
 
-Simplecheck is a property checking API for Ruby designed for quickly checking of arguments. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
+Simplecheck is a property checking API for Ruby designed for quickly checking arguments. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
 
 If a check fails an exception of type `Simplecheck::CheckFailed` is raised.
 
@@ -26,9 +26,8 @@ Usage
     Person.new( nil, 25 ) rescue puts "Name can not be nil"
     Person.new( "Joe", 15 ) rescue puts "Age is out of range"
 
-
-Check Types
------------
+Check Methods
+-------------
 
 Simplecheck currently supports three different check methods:
 
@@ -77,6 +76,14 @@ If a class does not alias or implement it's own version of `===` it has the same
 `===` is aliased to `call`: 
 
     check( password, password_confirmation, lambda{ |pwd| !Dictionary.check( pwd )})
+
+#### Custom Check Object
+
+The default behaviour of `Object#===` is the same as `Object#==`. To customise the behaiour implement your own `Object#===`
+
+For example to check whether a set of points is inside a given polygon we implement `Polygon#===` as an implmentation of a [point-in-polygon algorithm](https://en.wikipedia.org/wiki/Point_in_polygon), allowing us to carry out the check using a Poygon instance:
+
+    check( point_1, point_2, polygon )
 
 ### Block Check
 
