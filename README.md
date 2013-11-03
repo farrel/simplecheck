@@ -87,7 +87,7 @@ For example to check whether a set of points is inside a given polygon we would 
 
 ### Block Check
 
-A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block.:
+A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block:
 
     check( a, b, c ) do |n|
       n.modulo?(2).zero?
