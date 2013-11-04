@@ -11,11 +11,8 @@ module Simplecheck
 
     if error_message
       simplecheck_handle_failure( error_message )
-    else
-      simplecheck_handle_return_arguments( arguments )
     end
   end
-
 
   private
   def simplecheck_check_arguments( arguments )
@@ -45,14 +42,5 @@ module Simplecheck
 
   def simplecheck_handle_failure( message )
     raise Simplecheck::CheckFailed.new( message )
-  end
-
-  def simplecheck_handle_return_arguments( arguments )
-    case arguments.size
-    when 1
-      arguments[0]
-    else
-      arguments
-    end
   end
 end
