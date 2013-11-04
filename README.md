@@ -45,7 +45,7 @@ In the simplest case `check` takes an expression as an argument. If the expressi
 
 If two or more arguments are given without a block, then the last argument becomes the condition against which the previous arguments are checked. To accomplish this the condition argument should implement the case equality operator (`===` or threequal) in a logical manner.
 
-If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`. The following Ruby Core classes already alias `===` to various instance methods. If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`.
+If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`. The following Ruby Core classes already alias `===` to various instance methods.
 
 #### Class
 
