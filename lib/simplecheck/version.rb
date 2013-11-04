@@ -1,3 +1,3 @@
 module Simplecheck
-  VERSION = '0.9'
+  VERSION = '1.0rc1'
 end

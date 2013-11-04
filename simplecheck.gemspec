@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Farrel Lifson']
   s.email       = ['farrel.lifson@aimred.com']
-  s.homepage    = 'http://www.aimred.com/projects/simplecheck'
+  s.homepage    = 'http://github.com/farrel/simplecheck'
   s.summary     = 'Simple property checking for Ruby'
   s.description = 'Simple property checking for Ruby'
 
