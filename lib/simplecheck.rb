@@ -9,9 +9,7 @@ module Simplecheck
                       simplecheck_check_arguments( arguments )
                     end
 
-    if error_message
-      simplecheck_handle_failure( error_message )
-    end
+    error_message ?  simplecheck_handle_failure( error_message ) : true
   end
 
   private
