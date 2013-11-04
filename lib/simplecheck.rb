@@ -33,13 +33,13 @@ module Simplecheck
 
   def simplecheck_check_expression( expression )
     if !expression
-      'Condition is not true' 
+      'Condition is not satisfied' 
     end
   end
 
-  def simplecheck_check_case_equality( *arguments, receiver )
-    if invalid_argument = arguments.find{ |argument| !( receiver === argument )}
-      "#{ invalid_argument } does not satisfy #{ receiver }" 
+  def simplecheck_check_case_equality( *arguments, check_object )
+    if invalid_argument = arguments.find{ |argument| !( check_object === argument )}
+      "#{ invalid_argument } does not satisfy #{ check_object }" 
     end
   end
 
