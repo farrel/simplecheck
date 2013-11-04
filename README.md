@@ -3,7 +3,7 @@ Simplecheck
 
 Simplecheck is a property checking API for Ruby designed for quickly checking arguments. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
 
-If a check fails an exception of type `Simplecheck::CheckFailed` is raised.
+If a check fails a `Simplecheck::CheckFailed` exception is raised.
 
 Usage
 -----
@@ -69,7 +69,7 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 `===` is aliased to `call`: 
 
-    check( password, password_confirmation, lambda{ |pwd| !Dictionary.check( pwd )})
+    check( password, lambda{ |pwd| !Dictionary.lookup( pwd )})
 
 #### Custom Check Object
 
@@ -83,8 +83,8 @@ For example to check whether a set of points is inside a given polygon we would 
 
 A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block:
 
-    check( a, b, c ) do |n|
-      n.modulo?(2).zero?
+    check( a ) do |n|
+      n.odd?
     end
 
 This is syntactic sugar for the Proc Case Equality check.
@@ -93,6 +93,11 @@ Multiple Arguments
 ------------------
 
 Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
+
+    check( i, j, k, Integer ) 
+    check( a, b, c ) do |n|
+      n.even?
+    end
 
 License
 -------
