@@ -1,7 +1,7 @@
 Simplecheck
 ===========
 
-Simplecheck is a property checking API for Ruby designed for quickly checking arguments. Once included into a class it provides the `check` instance method which takes a list of arguments and a condition to check them against.
+Simplecheck is a lightweight property checking API for Ruby designed to quickly check arguments. Once included into a class it provides the `check` instance method which takes arguments and a condition to check them against.
 
 If a check fails a `Simplecheck::CheckFailed` exception is raised.
 
@@ -37,15 +37,24 @@ Simplecheck currently supports three different check methods:
 
 ### Expression Check
 
-In the simplest case `check` takes an expression as an argument. If the expression evaluates to `nil` or `false` it will fail.
+In the simplest case `check` takes an expression as an argument. If the expression evaluates to `nil` or `false` it will fail. 
 
-    check( a > 2 )
+    def calculate_percentage( score, total )
+      check( total > 0 )
+      100.0 * score / total
+    end
 
 ### Case Equality (===) Check
 
 If two or more arguments are given without a block, then the last argument becomes the condition against which the previous arguments are checked. To accomplish this the condition argument should implement the case equality operator (`===` or threequal) in a logical manner.
 
 If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`. The following Ruby Core classes already alias `===` to various instance methods.
+
+    def greatest_common_divisor( a, b )
+      check( a, b, Numeric )
+      # GCD Algorithm
+    end
+
 
 #### Class
 
@@ -69,7 +78,7 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 `===` is aliased to `call`: 
 
-    check( password, lambda{ |pwd| !Dictionary.lookup( pwd )})
+    check( password, password_confirmation , ->(p){ !Dict.lookup( p )})
 
 #### Custom Check Object
 
@@ -83,7 +92,7 @@ For example to check whether a set of points is inside a given polygon we would 
 
 A block can be passed to `check`, with the arguments passed to `check` then passed individually to the block:
 
-    check( a ) do |n|
+    check( a, b, c ) do |n|
       n.odd?
     end
 
