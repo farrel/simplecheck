@@ -4,41 +4,40 @@ require 'simplecheck/check_failed'
 module Simplecheck
   def check( *arguments, &block )
     error_message = if block_given?
-                      simplecheck_check_arguments_with_block( arguments, block )
+                      Simplecheck.check_arguments_with_block( arguments, block )
                     else
-                      simplecheck_check_arguments( arguments )
+                      Simplecheck.check_arguments( arguments )
                     end
 
-    error_message ?  simplecheck_handle_failure( error_message ) : true
+    error_message ?  Simplecheck.handle_failure( error_message ) : true
   end
 
-  private
-  def simplecheck_check_arguments( arguments )
+  def Simplecheck.check_arguments( arguments )
     case arguments.size
     when 1
-      simplecheck_check_expression( arguments[ 0 ])
+      Simplecheck.check_expression( arguments[ 0 ])
     else
-      simplecheck_check_case_equality( *arguments )
+      Simplecheck.check_case_equality( *arguments )
     end
   end
 
-  def simplecheck_check_arguments_with_block( arguments, block )
-    simplecheck_check_arguments(( arguments + [ block ]))
+  def Simplecheck.check_arguments_with_block( arguments, block )
+    Simplecheck.check_arguments(( arguments + [ block ]))
   end
 
-  def simplecheck_check_expression( expression )
+  def Simplecheck.check_expression( expression )
     if !expression
       'Condition is not satisfied' 
     end
   end
 
-  def simplecheck_check_case_equality( *arguments, check_object )
-    if invalid_argument = arguments.find{ |argument| !( check_object === argument )}
-      "#{ invalid_argument } does not satisfy #{ check_object }" 
+  def Simplecheck.check_case_equality( *arguments, check_argument )
+    if invalid_argument = arguments.find{ |argument| !( check_argument === argument )}
+      "#{ invalid_argument } does not satisfy #{ check_argument }" 
     end
   end
 
-  def simplecheck_handle_failure( message )
+  def Simplecheck.handle_failure( message )
     raise Simplecheck::CheckFailed.new( message )
   end
 end
