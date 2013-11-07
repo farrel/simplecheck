@@ -1,4 +1,5 @@
 require 'simplecheck'
+
 include Simplecheck
 
 # Block passed implicitly to check

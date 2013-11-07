@@ -1,4 +1,5 @@
 require 'simplecheck'
+
 include Simplecheck
 
 check( 1.odd? )

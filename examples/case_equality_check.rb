@@ -1,4 +1,5 @@
 require 'simplecheck'
+
 include Simplecheck
 
 # Class#=== -> Class#kind_of?
