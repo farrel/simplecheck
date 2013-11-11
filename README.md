@@ -10,21 +10,23 @@ Usage
 
     require 'simplecheck'
 
-    class Person
+    class Customer
       include Simplecheck
+      
+      attr_accessor( :name, :age )
 
       def initialize( name, age )
-        check( name )         # Check name is not nil
-        check( age, 18..75 )  # Check age is within range
+        check( name, String ) # Check name is String
+        check( age, 18..75 )  # Check age is within Range
     
         @name = name
         @age = age
       end
     end
     
-    Person.new( "Joe", 25 ) # No error
-    Person.new( nil, 25 )   rescue puts "Name can not be nil"
-    Person.new( "Joe", 15 ) rescue puts "Age is out of range"
+    Customer.new( "Joe", 25 ) # No error
+    Customer.new( nil, 25 )   rescue puts "Name can not be nil"
+    Customer.new( "Joe", 15 ) rescue puts "Age is out of range"
 
 Check Methods
 -------------

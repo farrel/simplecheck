@@ -12,6 +12,6 @@ check( 'aaabbb', /^aaa/ )
 check( 1, 1..10 )
 
 # Proc#=== -> Proc#call
-check( 1, lambda{ |n|  n.odd? })
+check( 1, ->(n){ n.odd? })
 
 puts "All passed"

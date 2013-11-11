@@ -51,3 +51,5 @@ bob.date_of_birth = nil
 
 # date_of_birth is not present
 try{ joe > bob }
+
+puts "Finished"
