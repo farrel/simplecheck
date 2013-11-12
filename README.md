@@ -19,8 +19,7 @@ Usage
         check( name, String ) # Check name is String
         check( age, 18..75 )  # Check age is within Range
     
-        @name = name
-        @age = age
+        @name, @age = name, age
       end
     end
     
