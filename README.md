@@ -1,12 +1,16 @@
-Simplecheck
-===========
+# Simplecheck
 
 Simplecheck is a lightweight property checking API for Ruby designed to quickly check arguments. Once included into a class it provides the `check` instance method which takes arguments and a condition to check them against.
 
 If a check fails a `Simplecheck::CheckFailed` exception is raised.
 
-Usage
------
+## Installation
+
+Simplecheck is available as a Rubygem installable via [gem install simplecheck](http://rubygems.org/gems/simplecheck).
+
+A git repository is also available at [http://github.com/farrel/simplecheck](http://github.com/farrel/simplecheck).
+
+## Usage
 
     require 'simplecheck'
 
@@ -27,8 +31,7 @@ Usage
     Customer.new( nil, 25 )   rescue puts "Name can not be nil"
     Customer.new( "Joe", 15 ) rescue puts "Age is out of range"
 
-Check Methods
--------------
+## Check Methods
 
 Simplecheck currently supports three different check methods:
 
@@ -50,8 +53,8 @@ In the simplest case `check` takes an expression as an argument. If the expressi
 If two or more arguments are given without a block, then the last argument becomes the condition against which the previous arguments are checked. To accomplish this the condition argument should implement the case equality operator (`===` or threequal) in a logical manner.
 
     def greatest_common_divisor( a, b )
-      check( a, b, Numeric )
-      # GCD Algorithm
+      check( a, b, Integer )
+      # GCD Algorithm...
     end
 
 If a class does not alias or implement it's own version of `===` it has the same functionality as  `==`. The following Ruby Core classes already alias `===` to various instance methods.
@@ -99,8 +102,7 @@ A block can be passed to `check`, with the arguments passed to `check` then pass
 
 This is syntactic sugar for the Proc Case Equality check.
 
-Multiple Arguments
-------------------
+## Multiple Arguments
 
 Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
 
@@ -109,8 +111,12 @@ Case Equality and Block checks can be called with multiple arguments, with each 
       n.even?
     end
 
-License
--------
+## Resources
+
+* Git repository - [http://github.com/farrel/simplecheck](http://github.com/farrel/simplecheck)
+* Rubygem page - [http://rubygems.org/gems/simplecheck](http://rubygems.org/gems/simplecheck)
+
+## License
 Simplecheck is released under the BSD License.
 
 Copyright 2013 AIMRED CC. All rights reserved.
