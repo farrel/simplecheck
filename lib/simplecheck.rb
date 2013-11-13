@@ -12,32 +12,32 @@ module Simplecheck
     error_message ?  Simplecheck.handle_failure( error_message ) : true
   end
 
-  def Simplecheck.check_arguments( arguments )
+  def self.check_arguments( arguments )
     case arguments.size
     when 1
-      Simplecheck.check_expression( arguments[ 0 ])
+      self.check_expression( arguments[ 0 ])
     else
-      Simplecheck.check_case_equality( *arguments )
+      self.check_case_equality( *arguments )
     end
   end
 
-  def Simplecheck.check_arguments_with_block( arguments, block )
-    Simplecheck.check_arguments(( arguments + [ block ]))
+  def self.check_arguments_with_block( arguments, block )
+    self.check_arguments(( arguments + [ block ]))
   end
 
-  def Simplecheck.check_expression( expression )
+  def self.check_expression( expression )
     if !expression
       'Condition is not satisfied' 
     end
   end
 
-  def Simplecheck.check_case_equality( *arguments, check_argument )
+  def self.check_case_equality( *arguments, check_argument )
     if invalid_argument = arguments.find{ |argument| !( check_argument === argument )}
       "#{ invalid_argument } does not satisfy #{ check_argument }" 
     end
   end
 
-  def Simplecheck.handle_failure( message )
+  def self.handle_failure( message )
     raise Simplecheck::CheckFailed.new( message )
   end
 end
