@@ -11,8 +11,9 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/farrel/simplecheck'
   s.summary     = 'Simple property checking for Ruby'
   s.description = 'Simple property checking for Ruby'
+  s.license     = 'BSD 2-Clause'
 
-  s.rubyforge_project = 'rcap'
+  s.rubyforge_project = 'simplecheck'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
