@@ -25,10 +25,8 @@ module Simplecheck
     self.check_arguments(( arguments + [ block ]))
   end
 
-  def self.check_expression( expression )
-    if !expression
-      'Condition is not satisfied' 
-    end
+  def self.check_expression( expression_satisfied )
+    'Condition is not satisfied' unless expression_satisfied
   end
 
   def self.check_case_equality( *arguments, check_argument )

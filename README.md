@@ -74,7 +74,7 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 #### Regexp
 
-`===` is aliased to `match`:
+`===` is aliased to `=~`:
 
     check( phone_number, /^\d\d\d-\d\d\d\d$/ )
 
