@@ -22,7 +22,7 @@ module Simplecheck
   end
 
   def self.check_arguments_with_block(arguments, block)
-    check_arguments(( arguments + [block]))
+    check_arguments(arguments + [block])
   end
 
   def self.check_expression(expression_satisfied)
