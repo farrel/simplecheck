@@ -5,7 +5,7 @@ class Person
   include Simplecheck
   include Comparable
 
-  attr_accessor(:name, :surname, :date_of_birth)
+  attr_accessor :name, :surname, :date_of_birth 
 
   def initialize(name, surname, date_of_birth)
     check name, surname, String
