@@ -3,15 +3,15 @@ require 'simplecheck'
 include Simplecheck
 
 # Class#=== -> Class#kind_of?
-check( 1, Integer )
+check(1, Integer)
 
 # Regexp#=== -> Regexp#match
-check( 'aaabbb', /^aaa/ )
+check('aaabbb', /^aaa/)
 
 # Range#=== -> Range#include?
-check( 1, 1..10 )
+check(1, 1..10)
 
 # Proc#=== -> Proc#call
-check( 1, ->(n){ n.odd? })
+check(1, ->(n) { n.odd? })
 
-puts "All passed"
+puts 'All passed'
