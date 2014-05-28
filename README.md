@@ -1,6 +1,6 @@
 # Simplecheck
 
-Simplecheck is a lightweight property checking API for Ruby designed to quickly check arguments. Once included into a class it provides the `check` instance method which takes arguments and a condition to check them against.
+Simplecheck is a lightweight property checking API for Ruby designed to quickly check arguments in under 50 lines of Ruby. Once included into a class it provides the `check` instance method which takes arguments and a condition to check them against.
 
 If a check fails a `Simplecheck::CheckFailed` exception is raised.
 

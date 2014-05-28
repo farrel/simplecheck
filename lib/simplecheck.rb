@@ -15,7 +15,7 @@ module Simplecheck
   def self.check_arguments(arguments)
     case arguments.size
     when 1
-      check_expression(arguments[ 0])
+      check_expression(arguments[0])
     else
       check_case_equality(*arguments)
     end
@@ -30,7 +30,7 @@ module Simplecheck
   end
 
   def self.check_case_equality(*arguments, check_argument)
-    invalid_argument = arguments.find { |argument| !( check_argument === argument) }
+    invalid_argument = arguments.find { |argument| !(check_argument === argument) }
 
     if invalid_argument
       "#{ invalid_argument } does not satisfy #{ check_argument }"
