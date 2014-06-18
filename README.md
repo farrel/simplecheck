@@ -19,9 +19,9 @@ A git repository is also available at [http://github.com/farrel/simplecheck](htt
     class Customer
       include Simplecheck
       
-      attr_accessor( :name, :age )
+      attr_accessor(:name, :age)
 
-      def initialize( name, age )
+      def initialize(name, age)
         check(name, String, error_message: 'name must be a String') # Check name is String with custom error message
         check(age, 18..75)                                          # Check age is within Range
     
@@ -55,14 +55,14 @@ Simplecheck currently supports three different check methods:
 
 All check methods may take an optional named parameter `error_message` to override the default error message.
 
-    check(age, Integer, error_message: 'Age must be an whole number')
+    check(age, Integer, error_message: 'Age must be a whole number')
 
 ### Expression Check
 
 In the simplest case `check` takes an expression as an argument. If the expression evaluates to `nil` or `false` it will fail. 
 
-    def calculate_percentage( score, total )
-      check(total > 0)
+    def calculate_percentage(score, total)
+      check(total > 0, error_message: 'Total must be a positive number')
       100.0 * score / total
     end
 
@@ -93,7 +93,7 @@ If a class does not alias or implement it's own version of `===` it has the same
 
 `===` is aliased to `=~`:
 
-    check(phone_number, /^\d\d\d-\d\d\d\d$/)
+    check(phone_number, /^\d\d\d-\d\d\d\d$/, error_message: 'Phone number format is not valid')
 
 #### Proc
 
@@ -123,8 +123,8 @@ This is syntactic sugar for the Proc Case Equality check.
 
 Case Equality and Block checks can be called with multiple arguments, with each argument being checked individually against the condition:
 
-    check( i, j, k, Integer ) 
-    check( a, b, c ) do |n|
+    check(i, j, k, Integer) 
+    check(a, b, c) do |n|
       n.even?
     end
 
