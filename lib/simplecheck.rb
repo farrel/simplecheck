@@ -2,14 +2,14 @@ require 'simplecheck/version'
 require 'simplecheck/check_failed'
 
 module Simplecheck
-  def check(*arguments, &block)
-    error_message = if block_given?
-                      Simplecheck.check_arguments_with_block(arguments, block)
-                    else
-                      Simplecheck.check_arguments(arguments)
-                    end
-
-    error_message ?  Simplecheck.handle_failure(error_message) : true
+  def check(*arguments, error_message: nil, &block)
+    default_error_message = if block_given?
+                              Simplecheck.check_arguments_with_block(arguments, block)
+                            else
+                              Simplecheck.check_arguments(arguments)
+                            end
+    
+    default_error_message ?  Simplecheck.handle_failure(error_message || default_error_message) : true
   end
 
   def self.check_arguments(arguments)
