@@ -4,6 +4,8 @@ Simplecheck is a lightweight property checking API for Ruby designed to quickly 
 
 If a check fails a `Simplecheck::CheckFailed` exception is raised.
 
+Simplecheck is compatiable with Ruby 2.0.0 and above only.
+
 ## Installation
 
 Simplecheck is available as a Rubygem installable via [gem install simplecheck](http://rubygems.org/gems/simplecheck).
@@ -20,8 +22,8 @@ A git repository is also available at [http://github.com/farrel/simplecheck](htt
       attr_accessor( :name, :age )
 
       def initialize( name, age )
-        check(name, String)                                                      # Check name is String
-        check(age, 18..75, error_message: 'Customer is not eligible due to age') # Check age is within Range with custom error message
+        check(name, String, error_message: 'name must be a String') # Check name is String with custom error message
+        check(age, 18..75)                                          # Check age is within Range
     
         @name, @age = name, age
       end
@@ -32,13 +34,13 @@ A git repository is also available at [http://github.com/farrel/simplecheck](htt
     begin
       Customer.new(nil, 25)
     rescue Simplecheck::CheckFailed => exception
-      puts exception.message  
+      puts exception.message # => 'name must be a String'  
     ebd
 
     begin 
       Customer.new("Joe", 15) 
     rescue Simplecheck::CheckFailed => exception
-      puts exception.message # => 'Customer is not eligible due to age'
+      puts exception.message # => '15 does not satisfy 18..75'
     ebd
 
 ## Check Methods
@@ -48,6 +50,12 @@ Simplecheck currently supports three different check methods:
 * Expression Check
 * Case Equality (===) Check 
 * Block Check
+
+### Custom Error Message
+
+All check methods may take an optional named parameter `error_message` to override the default error message.
+
+    check(age, Integer, error_message: 'Age must be an whole number')
 
 ### Expression Check
 
