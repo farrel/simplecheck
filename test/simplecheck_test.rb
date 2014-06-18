@@ -58,4 +58,8 @@ class TestSimplecheck < MiniTest::Test
   def test_lambda_block_check_raises_exception
     assert_raises(Simplecheck::CheckFailed) { check(1, &->(n){ n.even? }) }
   end
+
+  def test_nil_check
+    assert_raises(Simplecheck::CheckFailed) { check(nil, String) }
+  end
 end
