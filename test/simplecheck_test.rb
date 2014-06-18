@@ -93,4 +93,8 @@ class TestSimplecheck < MiniTest::Test
     exception = assert_raises(Simplecheck::CheckFailed) { check(1, error_message: 'Not Even', &->(n){ n.even? }) }
     assert_equal(exception.message, 'Not Even')
   end
+
+  def test_nil_check
+    assert_raises(Simplecheck::CheckFailed) { check(nil, String) }
+  end
 end

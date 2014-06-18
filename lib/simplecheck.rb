@@ -30,10 +30,10 @@ module Simplecheck
   end
 
   def self.check_case_equality(*arguments, check_argument)
-    invalid_argument = arguments.find { |argument| !(check_argument === argument) }
+    invalid_argument_index = arguments.index{ |argument| !(check_argument === argument) }
 
-    if invalid_argument
-      "#{ invalid_argument } does not satisfy #{ check_argument }"
+    if invalid_argument_index
+      "#{ arguments[invalid_argument_index] } does not satisfy #{ check_argument }"
     end
   end
 
