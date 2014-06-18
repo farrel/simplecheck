@@ -89,7 +89,7 @@ class TestSimplecheck < MiniTest::Test
     assert_raises(Simplecheck::CheckFailed) { check(1, &->(n){ n.even? }) }
   end
 
-  def test_lambda_block_check_raises_exception_wieh_error_message
+  def test_lambda_block_check_raises_exception_with_error_message
     exception = assert_raises(Simplecheck::CheckFailed) { check(1, error_message: 'Not Even', &->(n){ n.even? }) }
     assert_equal(exception.message, 'Not Even')
   end
