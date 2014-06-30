@@ -8,7 +8,7 @@ module Simplecheck
                             else
                               Simplecheck.check_arguments(arguments)
                             end
-    
+
     default_error_message ?  Simplecheck.handle_failure(error_message || default_error_message) : true
   end
 
@@ -30,7 +30,7 @@ module Simplecheck
   end
 
   def self.check_case_equality(*arguments, check_argument)
-    invalid_argument_index = arguments.index{ |argument| !(check_argument === argument) }
+    invalid_argument_index = arguments.index { |argument| !(check_argument === argument) }
 
     if invalid_argument_index
       "#{ arguments[invalid_argument_index] } does not satisfy #{ check_argument }"
