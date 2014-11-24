@@ -13,8 +13,7 @@ module Simplecheck
   end
 
   def self.check_arguments(arguments)
-    case arguments.size
-    when 1
+    if arguments.size == 1
       check_expression(arguments[0])
     else
       check_case_equality(*arguments)
